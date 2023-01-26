@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "ExampleHomebridgePlugin",
+  "pluginAlias": "KiaConnectHomebridgePlugin",
   "pluginType": "platform",
   "singular": true,
   "schema": {
