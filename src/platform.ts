@@ -3,7 +3,7 @@ import { API, DynamicPlatformPlugin, Logger, PlatformAccessory, PlatformConfig, 
 import { PLATFORM_NAME, PLUGIN_NAME } from './settings';
 import { LockAccessory } from './lockAccessory';
 import { EngineAccessory } from './engineAccessory';
-import { ClimateAccessory } from './cliimateAccessory';
+import { ClimateAccessory } from './climateAccessory';
 
 export class HomebridgeKiaConnect implements DynamicPlatformPlugin {
   public readonly Service: typeof Service = this.api.hap.Service;
