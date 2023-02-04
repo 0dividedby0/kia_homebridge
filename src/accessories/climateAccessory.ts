@@ -1,11 +1,10 @@
 import { Service, PlatformAccessory } from 'homebridge';
+import { VehicleManager } from '../kia/vehicleManager';
 
-import { HomebridgeKiaConnect } from './platform';
+import { HomebridgeKiaConnect } from '../platform';
 
 export class ClimateAccessory {
   private thermostatService: Service;
-  private driverHeatService: Service;
-  private passengerHeatService: Service;
 
   climateCurrentState: number;
   climateTargetState: number;
@@ -16,7 +15,7 @@ export class ClimateAccessory {
   driverHeatOnState: boolean;
   passengerHeatOnState: boolean;
 
-  constructor(private readonly platform: HomebridgeKiaConnect, private readonly accessory: PlatformAccessory) {
+  constructor(private readonly platform: HomebridgeKiaConnect, private readonly vehicleManager: VehicleManager, private readonly accessory: PlatformAccessory) {
     this.climateCurrentState = this.platform.Characteristic.CurrentHeatingCoolingState.OFF;
     this.climateTargetState = this.platform.Characteristic.CurrentHeatingCoolingState.OFF;
     this.currentTemperature = -270;
@@ -46,24 +45,12 @@ export class ClimateAccessory {
       .onGet(this.getTemperatureDisplayUnits.bind(this))
       .onSet(this.setTemperatureDisplayUnits.bind(this));
 
-    this.driverHeatService = this.accessory.getService('Driver Seat') || this.accessory.addService(this.platform.Service.Switch, 'Driver Seat', 'driver_seat_heat_switch');
-
-    this.driverHeatService.getCharacteristic(this.platform.Characteristic.On)
-      .onGet(this.getDriverHeatOn.bind(this))
-      .onSet(this.setDriverHeatOn.bind(this));
-
-    this.passengerHeatService = this.accessory.getService('Passenger Seat') || this.accessory.addService(this.platform.Service.Switch, 'Passenger Seat', 'passenger_seat_heat_switch');
-
-    this.passengerHeatService.getCharacteristic(this.platform.Characteristic.On)
-      .onGet(this.getPassengerHeatOn.bind(this))
-      .onSet(this.setPassengerHeatOn.bind(this));
-
     setInterval(() => {
-      this.platform.log.info('Apply climate targets!');
-      this.thermostatService.setCharacteristic(this.platform.Characteristic.CurrentHeatingCoolingState, this.climateTargetState);
-      this.climateCurrentState = this.climateTargetState;
-      this.thermostatService.setCharacteristic(this.platform.Characteristic.CurrentTemperature, this.targetTemperature);
+      // this.platform.log.info('Apply climate targets!');
+      this.climateCurrentState = this.climateTargetState === 3 ? this.targetTemperature < 65 ? 1 : 2 : this.climateTargetState;
+      this.thermostatService.setCharacteristic(this.platform.Characteristic.CurrentHeatingCoolingState, this.climateCurrentState);
       this.currentTemperature = this.targetTemperature;
+      this.thermostatService.setCharacteristic(this.platform.Characteristic.CurrentTemperature, this.targetTemperature);
     }, 5000);
   }
 
@@ -115,29 +102,5 @@ export class ClimateAccessory {
 
     this.thermostatService.setCharacteristic(this.platform.Characteristic.TemperatureDisplayUnits, value);
     this.temperatureUnits = value;
-  }
-
-  getDriverHeatOn() {
-    this.platform.log.info('Get driver heat on state: ', this.driverHeatOnState);
-
-    return this.driverHeatOnState;
-  }
-
-  setDriverHeatOn(value) {
-    this.platform.log.info('Set driver heat on state: ', value);
-
-    this.driverHeatOnState = value;
-  }
-
-  getPassengerHeatOn() {
-    this.platform.log.info('Get passenger heat on state: ', this.passengerHeatOnState);
-
-    return this.passengerHeatOnState;
-  }
-
-  setPassengerHeatOn(value) {
-    this.platform.log.info('Set passenger heat on state: ', value);
-
-    this.passengerHeatOnState = value;
   }
 }

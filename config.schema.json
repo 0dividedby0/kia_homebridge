@@ -14,32 +14,6 @@
         "title": "Password",
         "type": "string",
         "required": true
-      },
-      "region": {
-        "title": "Region",
-        "type": "integer",
-        "required": true,
-        "default": 1,
-        "oneOf": [
-          { "title": "USA", "enum": [1] },
-          { "title": "Canada", "enum": [2] },
-          { "title": "Europe", "enum": [3] }
-        ]
-      },
-      "brand": {
-        "title": "Brand",
-        "type": "integer",
-        "required": true,
-        "default": 1,
-        "oneOf": [
-          { "title": "Kia", "enum": [1] },
-          { "title": "Hyundai", "enum": [2] }
-        ]
-      },
-      "pin": {
-        "title": "Pin",
-        "type": "string",
-        "required": false
       }
     }
   }

@@ -1,6 +1,7 @@
 import { Service, PlatformAccessory } from 'homebridge';
+import { VehicleManager } from '../kia/vehicleManager';
 
-import { HomebridgeKiaConnect } from './platform';
+import { HomebridgeKiaConnect } from '../platform';
 
 export class LockAccessory {
   private lockService: Service;
@@ -8,7 +9,7 @@ export class LockAccessory {
   lockCurrentState: number;
   lockTargetState: number;
 
-  constructor(private readonly platform: HomebridgeKiaConnect, private readonly accessory: PlatformAccessory) {
+  constructor(private readonly platform: HomebridgeKiaConnect, private readonly vehicleManager: VehicleManager, private readonly accessory: PlatformAccessory) {
     //LOCK
     this.lockCurrentState = this.platform.Characteristic.LockCurrentState.SECURED;
     this.lockTargetState = this.platform.Characteristic.LockCurrentState.SECURED;
@@ -23,7 +24,7 @@ export class LockAccessory {
       .onSet(this.setLockTargetState.bind(this));
 
     setInterval(() => {
-      this.platform.log.info('Apply lock targets!');
+      // this.platform.log.info('Apply lock targets!');
       this.lockService.setCharacteristic(this.platform.Characteristic.LockCurrentState, this.lockTargetState);
       this.lockCurrentState = this.lockTargetState;
     }, 5000);
@@ -32,7 +33,6 @@ export class LockAccessory {
   //LOCK
   getLockCurrentState() {
     this.platform.log.info('Get lock current state: ', this.lockCurrentState);
-
     return this.lockCurrentState;
   }
 

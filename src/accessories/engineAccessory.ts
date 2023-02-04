@@ -1,13 +1,14 @@
 import { Service, PlatformAccessory } from 'homebridge';
+import { VehicleManager } from '../kia/vehicleManager';
 
-import { HomebridgeKiaConnect } from './platform';
+import { HomebridgeKiaConnect } from '../platform';
 
 export class EngineAccessory {
   private engineService: Service;
 
   engineOnState: boolean;
 
-  constructor(private readonly platform: HomebridgeKiaConnect, private readonly accessory: PlatformAccessory) {
+  constructor(private readonly platform: HomebridgeKiaConnect, private readonly vehicleManager: VehicleManager, private readonly accessory: PlatformAccessory) {
     this.engineOnState = false;
 
     this.engineService = this.accessory.getService(this.platform.Service.Switch) || this.accessory.addService(this.platform.Service.Switch);
