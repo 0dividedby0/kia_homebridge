@@ -64,7 +64,7 @@ export class KiaUSAInterface {
     return token;
   }
 
-  async getVehicles(token: Token): Promise<Array<any>> {
+  async getVehicles(token: Token): Promise<Array<unknown>> {
     const vehiclesURL = `${this.apiURL}/ownr/gvl`;
     const headers = this.apiHeaders();
     headers['sid'] = token.access_token;
@@ -100,6 +100,28 @@ export class KiaUSAInterface {
 
     const response = await axios.post(vehicleDetailsURL, body, {headers: headers});
 
-    return response.data.payload.vehicleInfoList[0].lastVehicleInfo.vehicleStatusRpt.vehicleStatus;
+    return response.data.payload.vehicleInfoList[0];
+  }
+
+  async lockVehicle(token: Token, vehicleKey: string): Promise<object> {
+    const lockVehicleURL = `${this.apiURL}/rems/door/lock`;
+    const headers = this.apiHeaders();
+    headers['sid'] = token.access_token;
+    headers['vinkey'] = vehicleKey;
+
+    const response = await axios.get(lockVehicleURL, {headers: headers});
+
+    return response;
+  }
+
+  async unlockVehicle(token: Token, vehicleKey: string): Promise<object> {
+    const unlockVehicleURL = `${this.apiURL}/rems/door/unlock`;
+    const headers = this.apiHeaders();
+    headers['sid'] = token.access_token;
+    headers['vinkey'] = vehicleKey;
+
+    const response = await axios.get(unlockVehicleURL, {headers: headers});
+
+    return response;
   }
 }

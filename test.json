@@ -1,0 +1,271 @@
+{
+    "vinKey": "faf216a6-7719-40a8-8d8b-b6356f620a05",
+    "vehicleConfig": {
+        "vehicleDetail": {
+            "vehicle": {
+                "vin": "5XXG64J2XNG108426",
+                "trim": {
+                    "modelYear": "2022",
+                    "salesModelCode": "L4452",
+                    "optionGroupCode": "015",
+                    "modelName": "K5",
+                    "factoryCode": "EY",
+                    "projectCode": "DL3",
+                    "trimName": "GT-LINE",
+                    "driveType": "2",
+                    "transmissionType": "1",
+                    "ivrCategory": "5"
+                },
+                "telematics": 1,
+                "mileage": "27721.4",
+                "mileageSyncDate": "20230212145515",
+                "exteriorColor": "WOLF GRAY",
+                "exteriorColorCode": "C7S",
+                "fuelType": 1,
+                "invDealerCode": "WA037",
+                "testVehicle": "0",
+                "supportedApps": [
+                    {
+                        "appType": "0"
+                    },
+                    {
+                        "appType": "5",
+                        "appImage": {
+                            "imageName": "uvo-app.png",
+                            "imagePath": "/content/dam/kia/us/owners/image/common/app/access/",
+                            "imageType": "2",
+                            "imageSize": {
+                                "length": "100",
+                                "width": "100",
+                                "uom": 0
+                            }
+                        }
+                    }
+                ],
+                "activationType": 2
+            },
+            "images": [
+                {
+                    "imageName": "2022-k5-gt-line-c7s.png",
+                    "imagePath": "/content/dam/kia/us/owners/image/vehicle-app/2022/k5/gt-line/",
+                    "imageType": "1",
+                    "imageSize": {
+                        "length": "100",
+                        "width": "100",
+                        "uom": 0
+                    }
+                }
+            ],
+            "device": {
+                "launchType": "0",
+                "swVersion": "DL322.USA.S5W_M.V009.001.221115",
+                "telematics": {
+                    "generation": "3",
+                    "platform": "1",
+                    "tmsCenter": "1",
+                    "billing": true
+                },
+                "versionNum": "GASOLINE",
+                "headUnitType": "0",
+                "hdRadio": "X40HAF",
+                "ampType": "NA",
+                "modem": {
+                    "meid": "351478319874221",
+                    "mdn": "6574967539"
+                },
+                "headUnitName": "avn5w",
+                "bluetoothRef": "20",
+                "headUnitDesc": "AVN5.0W"
+            }
+        },
+        "maintenance": {
+            "nextServiceMile": 4278.5996,
+            "maintenanceSchedule": [
+                8000,
+                16000,
+                24000,
+                32000,
+                40000,
+                48000,
+                56000,
+                64000,
+                72000,
+                80000,
+                88000,
+                96000,
+                104000
+            ]
+        },
+        "billingPeriod": {
+            "freeTrial": {
+                "value": 12,
+                "unit": 0
+            },
+            "freeTrialExtension": {
+                "value": 12,
+                "unit": 1
+            },
+            "servicePeriod": {
+                "value": 60,
+                "unit": 1
+            }
+        }
+    },
+    "lastVehicleInfo": {
+        "vehicleNickName": "Jasons K5 ",
+        "preferredDealer": "WA037",
+        "customerType": 0,
+        "enrollment": {
+            "provStatus": "4",
+            "enrollmentStatus": "1",
+            "enrollmentType": "0",
+            "registrationDate": "20221223",
+            "expirationDate": "20221021",
+            "expirationMileage": "100000",
+            "freeServiceDate": {
+                "startDate": "20211021",
+                "endDate": "20221021"
+            }
+        },
+        "activeDTC": {
+            "dtcActiveCount": "0"
+        },
+        "vehicleStatusRpt": {
+            "statusType": "2",
+            "reportDate": {
+                "utc": "20230213060440",
+                "offset": -8
+            },
+            "vehicleStatus": {
+                "climate": {
+                    "airCtrl": false,
+                    "defrost": false,
+                    "airTemp": {
+                        "value": "72",
+                        "unit": 1
+                    },
+                    "heatingAccessory": {
+                        "steeringWheel": 0,
+                        "sideMirror": 0,
+                        "rearWindow": 0
+                    },
+                    "heatVentSeat": {
+                        "driverSeat": {
+                            "heatVentType": 0,
+                            "heatVentLevel": 1
+                        },
+                        "passengerSeat": {
+                            "heatVentType": 0,
+                            "heatVentLevel": 1
+                        },
+                        "rearLeftSeat": {
+                            "heatVentType": 0,
+                            "heatVentLevel": 1
+                        },
+                        "rearRightSeat": {
+                            "heatVentType": 0,
+                            "heatVentLevel": 1
+                        }
+                    }
+                },
+                "engine": false,
+                "doorLock": true,
+                "doorStatus": {
+                    "frontLeft": 0,
+                    "frontRight": 0,
+                    "backLeft": 0,
+                    "backRight": 0,
+                    "trunk": 0,
+                    "hood": 0
+                },
+                "lowFuelLight": false,
+                "ign3": false,
+                "transCond": true,
+                "distanceToEmpty": {
+                    "value": 427,
+                    "unit": 3
+                },
+                "tirePressure": {
+                    "all": 0
+                },
+                "dateTime": {
+                    "utc": "20230213060440",
+                    "offset": -8
+                },
+                "syncDate": {
+                    "utc": "20230213055515",
+                    "offset": -8
+                },
+                "batteryStatus": {
+                    "stateOfCharge": 65,
+                    "deliveryMode": 1,
+                    "warning": 65,
+                    "powerAutoCutMode": 2
+                },
+                "sleepMode": false,
+                "lampWireStatus": {
+                    "headLamp": {
+                        "headLampStatus": false,
+                        "lampLL": false,
+                        "lampRL": false,
+                        "lampLH": false,
+                        "lampRH": false,
+                        "lampLB": false,
+                        "lampRB": false
+                    },
+                    "stopLamp": {
+                        "leftLamp": false,
+                        "rightLamp": false
+                    },
+                    "turnSignalLamp": {
+                        "lampLF": false,
+                        "lampRF": false,
+                        "lampLR": false,
+                        "lampRR": false
+                    }
+                },
+                "windowStatus": {
+                    "windowFL": 0,
+                    "windowFR": 0,
+                    "windowRL": 0,
+                    "windowRR": 0
+                },
+                "smartKeyBatteryWarning": false,
+                "fuelLevel": 100,
+                "washerFluidStatus": false,
+                "brakeOilStatus": false,
+                "engineOilStatus": false,
+                "engineRuntime": {},
+                "remoteControlAvailable": 1,
+                "valetParkingMode": 0,
+                "rsaStatus": 0
+            }
+        },
+        "location": {
+            "coord": {
+                "lat": 47.61716388,
+                "lon": -122.3316138889,
+                "alt": 0,
+                "type": 0,
+                "altdo": 0
+            },
+            "head": 317,
+            "speed": {
+                "value": 0,
+                "unit": 1
+            },
+            "accuracy": {
+                "hdop": 0,
+                "pdop": 0
+            },
+            "syncDate": {
+                "utc": "20230213055515",
+                "offset": -8
+            }
+        },
+        "financed": true,
+        "financeRegistered": false,
+        "linkStatus": 0,
+        "rsaStatus": 0
+    }
+}

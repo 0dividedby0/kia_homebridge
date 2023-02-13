@@ -17,7 +17,7 @@ export class VehicleManager {
     this.token = await this.kiaUSAInterface!.login();
     const vehiclesArray = await this.kiaUSAInterface!.getVehicles(this.token);
     vehiclesArray.forEach(vehicle => {
-      this.vehicles[vehicle.vehicleIdentifier] = vehicle;
+      this.vehicles[(vehicle as {vehicleIdentifier: string}).vehicleIdentifier] = vehicle;
     });
     if (this.vehicleID === '') {
       this.platform.log.info('Vehicles:', this.vehicles);
@@ -35,7 +35,21 @@ export class VehicleManager {
   async updateVehicle() {
     this.checkAndRefreshToken();
     this.vehicleDetails[this.vehicleID] = await this.kiaUSAInterface!.getVehicleDetails(this.token!, this.vehicles[this.vehicleID].vehicleKey);
-    this.platform.log.info('Vehicle Details:', this.vehicleDetails[this.vehicleID]);
+    this.platform.log.info('Vehicle Details:', JSON.stringify(this.vehicleDetails[this.vehicleID]));
     return this.vehicleDetails[this.vehicleID];
+  }
+
+  async lockVehicle() {
+    this.checkAndRefreshToken();
+    const response = await this.kiaUSAInterface!.lockVehicle(this.token!, this.vehicles[this.vehicleID].vehicleKey);
+    this.platform.log.info('Vehicle Lock Response: ', response);
+    return true;
+  }
+
+  async unlockVehicle() {
+    this.checkAndRefreshToken();
+    const response = await this.kiaUSAInterface!.unlockVehicle(this.token!, this.vehicles[this.vehicleID].vehicleKey);
+    this.platform.log.info('Vehicle Unlock Response: ', response);
+    return true;
   }
 }

@@ -1,10 +1,12 @@
 import { API, DynamicPlatformPlugin, Logger, PlatformAccessory, PlatformConfig, Service, Characteristic } from 'homebridge';
 
 import { PLATFORM_NAME, PLUGIN_NAME } from './settings';
-import { LockAccessory } from './accessories/lockAccessory';
+import { DoorsAccessory } from './accessories/doorsAccessory';
 import { EngineAccessory } from './accessories/engineAccessory';
 import { ClimateAccessory } from './accessories/climateAccessory';
 import { VehicleManager } from './kia/vehicleManager';
+import { ValetAccessory } from './accessories/valetAccessory';
+import { AlarmAccessory } from './accessories/alarmAccessory';
 
 export class HomebridgeKiaConnect implements DynamicPlatformPlugin {
   public readonly Service: typeof Service = this.api.hap.Service;
@@ -31,20 +33,20 @@ export class HomebridgeKiaConnect implements DynamicPlatformPlugin {
     for (const vehicle of this.config.vehicles) {
       this.vehicleManagers[vehicle.vehicleID] = new VehicleManager(this, this.config.username, this.config.password, vehicle.vehicleID);
 
-      //Lock
-      const uuidLock = this.api.hap.uuid.generate(`${vehicle.vehicleID}_lock`);
-      const existingLockAccessory = this.accessories.find(accessory => accessory.UUID === uuidLock);
+      //Doors
+      const uuidDoors = this.api.hap.uuid.generate(`${vehicle.vehicleID}_doors`);
+      const existingDoorsAccessory = this.accessories.find(accessory => accessory.UUID === uuidDoors);
 
-      if (existingLockAccessory) {
-        this.log.info('Restoring existing lock accessory from cache:', existingLockAccessory.displayName);
+      if (existingDoorsAccessory) {
+        this.log.info('Restoring existing doors accessory from cache:', existingDoorsAccessory.displayName);
 
-        new LockAccessory(this, this.vehicleManagers[vehicle.vehicleID], existingLockAccessory);
+        new DoorsAccessory(this, this.vehicleManagers[vehicle.vehicleID], existingDoorsAccessory);
       } else {
-        this.log.info('Adding new lock accessory:', vehicle.vehicleName);
-        const accessory = new this.api.platformAccessory(`${vehicle.vehicleName} Doors`, uuidLock);
+        this.log.info('Adding new doors accessory:', vehicle.vehicleName);
+        const accessory = new this.api.platformAccessory(`${vehicle.vehicleName} Doors`, uuidDoors);
         accessory.context.device = vehicle;
 
-        new LockAccessory(this, this.vehicleManagers[vehicle.vehicleID], accessory);
+        new DoorsAccessory(this, this.vehicleManagers[vehicle.vehicleID], accessory);
 
         this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
       }
@@ -81,6 +83,42 @@ export class HomebridgeKiaConnect implements DynamicPlatformPlugin {
         accessory.context.device = vehicle;
 
         new ClimateAccessory(this, this.vehicleManagers[vehicle.vehicleID], accessory);
+
+        this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
+      }
+
+      //Valet
+      const uuidValet = this.api.hap.uuid.generate(`${vehicle.vehicleID}_valet`);
+      const existingValetAccessory = this.accessories.find(accessory => accessory.UUID === uuidValet);
+
+      if (existingValetAccessory) {
+        this.log.info('Restoring existing valet accessory from cache:', existingValetAccessory.displayName);
+
+        new ValetAccessory(this, this.vehicleManagers[vehicle.vehicleID], existingValetAccessory);
+      } else {
+        this.log.info('Adding new valet accessory:', vehicle.vehicleName);
+        const accessory = new this.api.platformAccessory(`${vehicle.vehicleName} Valet`, uuidValet);
+        accessory.context.device = vehicle;
+
+        new ValetAccessory(this, this.vehicleManagers[vehicle.vehicleID], accessory);
+
+        this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
+      }
+
+      //Alarm
+      const uuidAlarm = this.api.hap.uuid.generate(`${vehicle.vehicleID}_alarm`);
+      const existingAlarmAccessory = this.accessories.find(accessory => accessory.UUID === uuidAlarm);
+
+      if (existingAlarmAccessory) {
+        this.log.info('Restoring existing alarm accessory from cache:', existingAlarmAccessory.displayName);
+
+        new AlarmAccessory(this, this.vehicleManagers[vehicle.vehicleID], existingAlarmAccessory);
+      } else {
+        this.log.info('Adding new alarm accessory:', vehicle.vehicleName);
+        const accessory = new this.api.platformAccessory(`${vehicle.vehicleName} Alarm`, uuidAlarm);
+        accessory.context.device = vehicle;
+
+        new AlarmAccessory(this, this.vehicleManagers[vehicle.vehicleID], accessory);
 
         this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
       }

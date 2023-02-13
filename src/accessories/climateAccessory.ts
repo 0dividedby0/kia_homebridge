@@ -20,7 +20,7 @@ export class ClimateAccessory {
     this.climateTargetState = this.platform.Characteristic.CurrentHeatingCoolingState.OFF;
     this.currentTemperature = -270;
     this.targetTemperature = 10;
-    this.temperatureUnits = this.platform.Characteristic.TemperatureDisplayUnits.CELSIUS;
+    this.temperatureUnits = this.platform.Characteristic.TemperatureDisplayUnits.FAHRENHEIT;
 
     this.driverHeatOnState = false;
     this.passengerHeatOnState = false;

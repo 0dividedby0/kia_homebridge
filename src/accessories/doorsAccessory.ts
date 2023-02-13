@@ -3,7 +3,7 @@ import { VehicleManager } from '../kia/vehicleManager';
 
 import { HomebridgeKiaConnect } from '../platform';
 
-export class LockAccessory {
+export class DoorsAccessory {
   private lockService: Service;
 
   lockCurrentState: number;
@@ -23,11 +23,6 @@ export class LockAccessory {
       .onGet(this.getLockTargetState.bind(this))
       .onSet(this.setLockTargetState.bind(this));
 
-    setInterval(() => {
-      // this.platform.log.info('Apply lock targets!');
-      this.lockService.setCharacteristic(this.platform.Characteristic.LockCurrentState, this.lockTargetState);
-      this.lockCurrentState = this.lockTargetState;
-    }, 5000);
   }
 
   //LOCK
@@ -46,5 +41,20 @@ export class LockAccessory {
     this.platform.log.info('Set lock target state: ', value);
 
     this.lockTargetState = value;
+    this.lockAction();
+  }
+
+  async lockAction() {
+    if (this.lockTargetState) {  //Lock
+      if (await this.vehicleManager.lockVehicle()) {
+        this.lockService.setCharacteristic(this.platform.Characteristic.LockCurrentState, this.lockTargetState);
+        this.lockCurrentState = this.lockTargetState;
+      }
+    } else {  //Unlock
+      if (await this.vehicleManager.unlockVehicle()) {
+        this.lockService.setCharacteristic(this.platform.Characteristic.LockCurrentState, this.lockTargetState);
+        this.lockCurrentState = this.lockTargetState;
+      }
+    }
   }
 }
