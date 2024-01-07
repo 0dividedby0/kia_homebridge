@@ -72,6 +72,21 @@ export class KiaUSAInterface {
     return response.data.payload.vehicleSummary;
   }
 
+  async forceSyncVehicle(token: Token, vehicleKey: string): Promise<object> {
+    const forceSyncURL = `${this.apiURL}/rems/rvs`;
+    const headers = this.apiHeaders();
+    headers['sid'] = token.access_token;
+    headers['vinkey'] = vehicleKey;
+
+    const body = {
+      'requestType': 0,
+    };
+
+    const response = await axios.post(forceSyncURL, body, {headers: headers});
+
+    return response.data;
+  }
+
   async getVehicleDetails(token: Token, vehicleKey: string): Promise<object> {
     const vehicleDetailsURL = `${this.apiURL}/cmm/gvi`;
     const headers = this.apiHeaders();
@@ -81,17 +96,17 @@ export class KiaUSAInterface {
     const body = {
       'vehicleConfigReq': {
         'airTempRange': '0',
-        'maintenance': '1',
+        'maintenance': '0',
         'seatHeatCoolOption': '0',
-        'vehicle': '1',
+        'vehicle': '0',
         'vehicleFeature': '0',
       },
       'vehicleInfoReq': {
         'drivingActivty': '0',
-        'dtc': '1',
-        'enrollment': '1',
+        'dtc': '0',
+        'enrollment': '0',
         'functionalCards': '0',
-        'location': '1',
+        'location': '0',
         'vehicleStatus': '1',
         'weather': '0',
       },
@@ -100,7 +115,7 @@ export class KiaUSAInterface {
 
     const response = await axios.post(vehicleDetailsURL, body, {headers: headers});
 
-    return response.data.payload.vehicleInfoList[0];
+    return response.data;
   }
 
   async lockVehicle(token: Token, vehicleKey: string): Promise<object> {

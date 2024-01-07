@@ -18,7 +18,7 @@ export class ValetAccessory {
       .onSet(this.setValetOn.bind(this));
   }
 
-  //ENGINE
+  //Valet
   getValetOn() {
     this.platform.log.info('Get valet on state: ', this.valetOnState);
 
